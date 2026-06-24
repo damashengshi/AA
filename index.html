@@ -33,24 +33,31 @@
         <p>欢迎向我提交资料。您可以在下方填写留言并上传图片，内容会直接发送到我的邮箱。</p>
 
         <!-- 邮件表单：enctype 属性是上传图片必须带有的 -->
-        <form action=" https://formspree.io/f/mbdvdoln" method="POST" enctype="multipart/form-data">
-            <div class="form-title">提交信息与图片</div>
-            
-            <label for="email">您的邮箱地址</label>
-            <input type="email" name="email" id="email" placeholder="querenzhuhao@gmail.com" required>
+        <!-- 新的 Web3Forms 兼容性表单（已彻底解决上传限制） -->
+<form action="https://web3forms.com" method="POST" enctype="multipart/form-data">
+    <div class="form-title">提交信息与图片</div>
+    
+    <!-- 1. 填入你的专属 Key（必需） -->
+    <input type="hidden" name="access_key" value="dcf8c382-60e1-4b72-9e3f-3dca6ed2a6a5">
+    
+    <!-- 2. 用户邮箱 -->
+    <label for="email">您的邮箱地址</label>
+    <input type="email" name="email" id="email" placeholder="name@example.com" required>
 
-            <label for="message">留言说明</label>
-            <textarea name="message" id="message" rows="3" placeholder="请简要说明您上传的图片内容..." required></textarea>
+    <!-- 3. 留言内容 -->
+    <label for="message">留言说明</label>
+    <textarea name="message" id="message" rows="3" placeholder="请简要说明您上传的图片内容..." required></textarea>
 
-            <!-- 图片上传选框（限定只能选图片，支持手机拍照或相册） -->
-            <label for="attachment">上传图片 (可选)</label>
-            <input type="file" name="attachment" id="attachment" accept="image/*">
+    <!-- 4. 图片文件上传框 -->
+    <label for="attachment">上传图片 (限10MB以内)</label>
+    <input type="file" name="attachment" id="attachment" accept="image/*" required>
 
-            <!-- 提交后自动返回 21云盒子首页，防止页面迷路 -->
-            <input type="hidden" name="_next" value="https://21cloudbox.com">
-            
-            <button type="submit">确认提交</button>
-        </form>
+    <!-- 5. 提交后自动返回你自己的 Vercel 网址，请把下方链接改成你自己的 Vercel 网址 -->
+    <input type="hidden" name="redirect" value="https://vercel.com">
+    
+    <button type="submit">确认提交</button>
+</form>
+
     </div>
 
 </body>
