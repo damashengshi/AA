@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>钻石官方商城</title>
     <style>
-        /* 全局AA POKER科技感极深墨绿背景 */
         body { 
             background-color: #020907; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
@@ -18,15 +17,11 @@
             min-height: 100vh;
             box-sizing: border-box;
         }
-
-        /* 统一容器最大宽度，完美适配各类手机端 */
         .container {
             width: 100%;
             max-width: 460px;
             box-sizing: border-box;
         }
-
-        /* 主标题样式 */
         .main-title {
             font-size: 24px;
             font-weight: bold;
@@ -36,8 +31,6 @@
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
         }
-        
-        /* 科技感微光卡片 */
         .box-card { 
             background: rgba(4, 18, 14, 0.75); 
             border: 1px solid #064e3b; 
@@ -47,19 +40,12 @@
             box-sizing: border-box; 
             margin-bottom: 20px;
         }
-
-        /* 小标题样式 */
         .section-title {
             font-size: 14px;
-            color: #10b981; /* 亮荧光绿 */
+            color: #10b981; 
             margin: 0 0 12px 0;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
-        
-        /* 公告文字排版 */
         .notice-text {
             font-size: 13px;
             color: #cbd5e1;
@@ -67,8 +53,6 @@
             text-align: justify;
             margin-bottom: 16px;
         }
-
-        /* 图片自适应容器 */
         .img-container {
             width: 100%;
             border-radius: 8px;
@@ -81,21 +65,16 @@
             height: auto;
             display: block;
         }
-
-        /* 三大分类网格布局 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
             gap: 12px;
             margin-bottom: 20px;
         }
-
         .grid-link {
             text-decoration: none;
             color: inherit;
         }
-
-        /* 分类子卡片样式 */
         .grid-item {
             background: #03120e;
             border: 1px solid #064e3b;
@@ -107,7 +86,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        /* 点击/悬停交互变亮 */
         .grid-item:hover, .grid-item:active {
             border-color: #10b981; 
             color: #ffffff;
@@ -118,24 +96,20 @@
             font-size: 24px;
             margin-bottom: 6px;
         }
-
-        /* 底部公告栏样式 */
         .footer-notice {
             font-size: 11px;
             color: #64748b;
             text-align: center;
             line-height: 1.6;
-            margin-top: auto; /* 推到底部 */
+            margin-top: auto; 
             padding-top: 14px;
             width: 100%;
             border-top: 1px dashed rgba(6, 78, 59, 0.4);
         }
         .alert-highlight {
-            color: #ef4444; /* 醒目红色警告 */
+            color: #ef4444; 
             font-weight: bold;
         }
-
-        /* 手机端过小时自动上下堆叠 */
         @media (max-width: 380px) {
             .grid-container {
                 grid-template-columns: 1fr;
@@ -146,24 +120,20 @@
 <body>
 
     <div class="container" style="display: flex; flex-direction: column; min-height: 92vh;">
-        <!-- 主标题 -->
         <div class="main-title">钻石官方商城</div>
 
-        <!-- 1. 公告栏目卡片 -->
         <div class="box-card">
             <div class="section-title">📢 官方公告</div>
             <div class="notice-text">
                 迄今为止所有线上约局平台中自定义配置最丰富的、体验最好的，满足各种人群不同需求:德州扑克、德州短牌、德州3-1、奥马哈、鱿鱼游戏模式、视频牌桌、蘑菇模式、暴击底池、Jackpot、保险模式。
             </div>
-            <!-- 公告下方的自适应图片 -->
             <div class="img-container">
                 <img src="https://squarespace-cdn.com" alt="AA POKER">
             </div>
         </div>
 
-        <!-- 2. 三大分类导航区 -->
         <div class="grid-container">
-            <!-- 2.1 充值钻石 -> 跳转外部H5 -->
+            <!-- 充值 -->
             <a href="https://9v3v.com" target="_blank" class="grid-link">
                 <div class="grid-item">
                     <div class="icon">💰</div>
@@ -171,15 +141,15 @@
                 </div>
             </a>
 
-            <!-- 2.2 回收钻石 -> 彻底移除内嵌，改为纯外部跳转 Tally 表单 -->
-            <a href="https://tally.so" target="_blank" class="grid-link">
+            <!-- 回收：【核心改动】点击后跳转到你项目内部的獨立表單網頁 -->
+            <a href="form.html" class="grid-link">
                 <div class="grid-item">
                     <div class="icon">🔄</div>
                     <div>回收钻石</div>
                 </div>
             </a>
 
-            <!-- 2.3 下载中心 -> 跳转官网 -->
+            <!-- 下载 -->
             <a href="https://aapoker.app" target="_blank" class="grid-link">
                 <div class="grid-item">
                     <div class="icon">📥</div>
@@ -188,7 +158,6 @@
             </a>
         </div>
 
-        <!-- 3. 底部公告栏 -->
         <div class="footer-notice">
             <span class="alert-highlight">⚠️ 提示：请认真填写谨防被骗</span><br>
             迄今为止所有线上约局平台中自定义配置最丰富的
