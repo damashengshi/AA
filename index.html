@@ -3,75 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人专属展示空间</title>
+    <title>鑽石官方商城</title>
     <style>
-        /* 高级流体渐变背景与基础重置 */
-        body { 
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
-            color: #f1f5f9; 
-            margin: 0; 
-            padding: 24px 16px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        
-        /* 苹果风格的毛玻璃微光卡片 */
-        .card { 
-            background: rgba(30, 41, 59, 0.7); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            width: 100%; 
-            max-width: 440px; 
-            border-radius: 24px; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); 
-            padding: 32px 24px; 
-            box-sizing: border-box; 
-            text-align: center; 
-        }
-        
-        /* 头像动效优化 */
-        .avatar { 
-            width: 96px; 
-            height: 96px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
-            margin: 0 auto 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 38px; 
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
-            transition: transform 0.3s ease;
-        }
-        .avatar:hover {
-            transform: scale(1.05) rotate(5deg);
-        }
-        
-        h1 { font-size: 24px; font-weight: 700; margin: 0 0 10px 0; letter-spacing: -0.5px; background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { font-size: 14px; color: #94a3b8; margin: 0 0 28px 0; line-height: 1.6; }
-        
-        /* 嵌入表单容器美化 */
-        .form-container { 
-            width: 100%; 
-            border-top: 1px solid rgba(255, 255, 255, 0.08); 
-            padding-top: 24px; 
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        iframe { width: 100%; min-height: 520px; border: none; }
-    </style><!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>钻石官方商城风格展示页</title>
-    <style>
-        /* 1. 提取图中的极深墨绿色背景 */
+        /* 1. 提取圖中的極深墨綠色背景 */
         body { 
             background-color: #030d0a; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
@@ -83,9 +17,10 @@
             align-items: center; 
             min-height: 100vh;
             box-sizing: border-box;
+            scroll-behavior: smooth; /* 讓跳轉到表單時有平滑滾動效果 */
         }
 
-        /* 顶部标题：仿照图中“钻石官方商城”字样 */
+        /* 頂部標題：仿照圖中“鑽石官方商城”字樣 */
         .main-title {
             font-size: 20px;
             font-weight: bold;
@@ -94,21 +29,21 @@
             letter-spacing: 1px;
         }
         
-        /* 2. 主卡片：带有微弱翠绿色发光边框 */
+        /* 2. 主卡片：帶有微弱翠綠色發光邊框 */
         .card { 
             background: rgba(5, 19, 15, 0.6); 
             width: 100%; 
             max-width: 460px; 
             border-radius: 12px; 
-            border: 1px solid #064e3b; /* 墨绿边框 */
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); /* 弱翠绿发光 */
+            border: 1px solid #064e3b; /* 墨綠邊框 */
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); /* 弱翠綠發光 */
             padding: 24px 16px; 
             box-sizing: border-box; 
             text-align: center; 
             margin-bottom: 24px;
         }
         
-        /* 钻石头像底色：采用图中亮眼的翠绿荧光色 */
+        /* 鑽石頭像底色：採用圖中亮眼的翠綠熒光色 */
         .avatar { 
             width: 80px; 
             height: 80px; 
@@ -119,44 +54,51 @@
             align-items: center; 
             justify-content: center; 
             font-size: 36px; 
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); /* 荧光发光 */
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); /* 熒光發光 */
         }
         
         h1 { font-size: 22px; font-weight: bold; margin: 0 0 8px 0; color: #ffffff; }
         p { font-size: 13px; color: #94a3b8; margin: 0 0 20px 0; line-height: 1.6; }
         
-        /* 3. 表单容器 */
+        /* 3. 表單容器 */
         .form-container { 
             width: 100%; 
             border-top: 1px solid #064e3b; 
             padding-top: 20px; 
             overflow: hidden;
         }
-        iframe { width: 100%; min-height: 520px; border: none; }
+        /* 確保 Tally 框架有足夠的高度完整顯示內容 */
+        iframe { width: 100%; min-height: 700px; border: none; }
 
-        /* 4. 分类区域标题：仿照图中“选择分类” */
+        /* 分類區域標題：仿照圖中“選擇分類” */
         .category-title {
             width: 100%;
             max-width: 460px;
             text-align: left;
             font-size: 14px;
-            color: #10b981; /* 翠绿字 */
+            color: #10b981; /* 翠綠字 */
             margin-bottom: 12px;
             padding-left: 4px;
             font-weight: bold;
         }
 
-        /* 5. 底部三列排列布局（自适应手机） */
+        /* 4. 底部三列排列布局（自適應手機） */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 电脑端横向三列 */
+            grid-template-columns: repeat(3, 1fr); /* 電腦端橫向三列 */
             gap: 12px;
             width: 100%;
             max-width: 460px;
             box-sizing: border-box;
         }
 
-        /* 子卡片样式：带有翠绿边框提示 */
+        /* 將卡片包裝為可點擊的無下劃線鏈接 */
+        .grid-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 子卡片樣式 */
         .grid-item {
             background: #041410;
             border: 1px solid #064e3b;
@@ -165,10 +107,11 @@
             text-align: center;
             font-size: 13px;
             color: #94a3b8;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         .grid-item:hover, .grid-item:active {
-            border-color: #10b981; /* 选中时变成亮翠绿边框 */
+            border-color: #10b981; /* 選中時變成亮翠綠邊框 */
             color: #ffffff;
             background: #051e18;
         }
@@ -177,7 +120,7 @@
             margin-bottom: 8px;
         }
 
-        /* 手机端屏幕太小时，三列自动变成上下堆叠，防止挤压 */
+        /* 手機端屏幕太小時，三列自動變成上下堆疊，防止擠壓 */
         @media (max-width: 380px) {
             .grid-container {
                 grid-template-columns: 1fr;
@@ -187,58 +130,54 @@
 </head>
 <body>
 
-    <!-- 顶部商城式标题 -->
-    <div class="main-title">钻石官方空间</div>
+    <!-- 頂部商城式標題 -->
+    <div class="main-title">鑽石官方商城</div>
 
-    <!-- 主展示与表单卡片 -->
+    <!-- 主展示與表單卡片 -->
     <div class="card">
         <div class="avatar">💎</div>
-        <h1>你的名字 / 品牌名</h1>
-        <p>欢迎来到我的专属空间。<br>请在下方提交您的留言与图片信息。</p>
+        <h1>官方線上服務中心</h1>
+        <p>歡迎來到官方專屬空間。<br>如有需求，請在下方提交您的留言與憑證圖片。</p>
 
-        <!-- 表单嵌入区域 -->
-        <div class="form-container">
-            <!-- ！！！重要：请把下面这段 iframe 换成你从 Tally 复制出来的专属代码 ！！！ -->
-            <iframe src="https://tally.so" loading="lazy" width="100%" height="520" frameborder="0" marginheight="0" marginwidth="0" title="联系我"></iframe>
-        </div>
-    </div>
-
-    <!-- 底部快捷分类排列区 -->
-    <div class="category-title">⚏ 快捷导航</div>
-    <div class="grid-container">
-        <div class="grid-item">
-            <div class="icon">💬</div>
-            <div>在线客服</div>
-        </div>
-        <div class="grid-item">
-            <div class="icon">🎁</div>
-            <div>福利专区</div>
-        </div>
-        <div class="grid-item">
-            <div class="icon">🎮</div>
-            <div>下载中心</div>
-        </div>
-    </div>
-
-</body>
-</html>
-
-</head>
-<body>
-
-    <div class="card">
-        <!-- 个人信息区域：你可以把 👋 换成你自己的网络头像图片链接 -->
-        <div class="avatar">💎</div>
-        <h1>AA钻石回收平台</h1>
-        <p>请认真填写数据，以免转错，提交后静待30分钟到账</p>
-
-        <!-- 表单嵌入区域 -->
-        <div class="form-container">
-            <!-- ！！！重要：请把下面这段 iframe 换成你从 Tally 复制出来的专属代码 ！！！ -->
+        <!-- 給表單增加錨點標記，方便一鍵跳轉定位 -->
+        <div class="form-container" id="contact-form">
+            <!-- 已成功填入你的專屬 Tally 表單 -->
             <iframe data-tally-src="https://tally.so/embed/GxkGbO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="894" frameborder="0" marginheight="0" marginwidth="0" title="/"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
         </div>
     </div>
+
+    <!-- 底部快捷分類排列區 -->
+    <div class="category-title">⚏ 快捷導航</div>
+    <div class="grid-container">
+        
+        <!-- 卡片 1：充值鑽石 -> 跳轉外部 H5 -->
+        <a href="https://9v3v.com" target="_blank" class="grid-link">
+            <div class="grid-item">
+                <div class="icon">💰</div>
+                <div>充值鑽石</div>
+            </div>
+        </a>
+
+        <!-- 卡片 2：回收鑽石 -> 平滑滾動到上方 Tally 表單 -->
+        <a href="#contact-form" class="grid-link">
+            <div class="grid-item">
+                <div class="icon">🔄</div>
+                <div>回收鑽石</div>
+            </div>
+        </a>
+
+        <!-- 卡片 3：下載中心 -> 跳轉指定下載地址 -->
+        <a href="https://aapoker.app" target="_blank" class="grid-link">
+            <div class="grid-item">
+                <div class="icon">📥</div>
+                <div>下載中心</div>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- 載入 Tally 官方嵌入控制腳本，確保表單加載流暢 -->
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
 </body>
 </html>
