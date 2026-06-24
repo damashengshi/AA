@@ -64,7 +64,165 @@
             overflow: hidden;
         }
         iframe { width: 100%; min-height: 520px; border: none; }
+    </style><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钻石官方商城风格展示页</title>
+    <style>
+        /* 1. 提取图中的极深墨绿色背景 */
+        body { 
+            background-color: #030d0a; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            color: #e2e8f0; 
+            margin: 0; 
+            padding: 20px 12px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* 顶部标题：仿照图中“钻石官方商城”字样 */
+        .main-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        
+        /* 2. 主卡片：带有微弱翠绿色发光边框 */
+        .card { 
+            background: rgba(5, 19, 15, 0.6); 
+            width: 100%; 
+            max-width: 460px; 
+            border-radius: 12px; 
+            border: 1px solid #064e3b; /* 墨绿边框 */
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); /* 弱翠绿发光 */
+            padding: 24px 16px; 
+            box-sizing: border-box; 
+            text-align: center; 
+            margin-bottom: 24px;
+        }
+        
+        /* 钻石头像底色：采用图中亮眼的翠绿荧光色 */
+        .avatar { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%; 
+            background: #10b981; 
+            margin: 0 auto 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 36px; 
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); /* 荧光发光 */
+        }
+        
+        h1 { font-size: 22px; font-weight: bold; margin: 0 0 8px 0; color: #ffffff; }
+        p { font-size: 13px; color: #94a3b8; margin: 0 0 20px 0; line-height: 1.6; }
+        
+        /* 3. 表单容器 */
+        .form-container { 
+            width: 100%; 
+            border-top: 1px solid #064e3b; 
+            padding-top: 20px; 
+            overflow: hidden;
+        }
+        iframe { width: 100%; min-height: 520px; border: none; }
+
+        /* 4. 分类区域标题：仿照图中“选择分类” */
+        .category-title {
+            width: 100%;
+            max-width: 460px;
+            text-align: left;
+            font-size: 14px;
+            color: #10b981; /* 翠绿字 */
+            margin-bottom: 12px;
+            padding-left: 4px;
+            font-weight: bold;
+        }
+
+        /* 5. 底部三列排列布局（自适应手机） */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 电脑端横向三列 */
+            gap: 12px;
+            width: 100%;
+            max-width: 460px;
+            box-sizing: border-box;
+        }
+
+        /* 子卡片样式：带有翠绿边框提示 */
+        .grid-item {
+            background: #041410;
+            border: 1px solid #064e3b;
+            border-radius: 8px;
+            padding: 20px 10px;
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+        .grid-item:hover, .grid-item:active {
+            border-color: #10b981; /* 选中时变成亮翠绿边框 */
+            color: #ffffff;
+            background: #051e18;
+        }
+        .grid-item .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        /* 手机端屏幕太小时，三列自动变成上下堆叠，防止挤压 */
+        @media (max-width: 380px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
+</head>
+<body>
+
+    <!-- 顶部商城式标题 -->
+    <div class="main-title">钻石官方空间</div>
+
+    <!-- 主展示与表单卡片 -->
+    <div class="card">
+        <div class="avatar">💎</div>
+        <h1>你的名字 / 品牌名</h1>
+        <p>欢迎来到我的专属空间。<br>请在下方提交您的留言与图片信息。</p>
+
+        <!-- 表单嵌入区域 -->
+        <div class="form-container">
+            <!-- ！！！重要：请把下面这段 iframe 换成你从 Tally 复制出来的专属代码 ！！！ -->
+            <iframe src="https://tally.so" loading="lazy" width="100%" height="520" frameborder="0" marginheight="0" marginwidth="0" title="联系我"></iframe>
+        </div>
+    </div>
+
+    <!-- 底部快捷分类排列区 -->
+    <div class="category-title">⚏ 快捷导航</div>
+    <div class="grid-container">
+        <div class="grid-item">
+            <div class="icon">💬</div>
+            <div>在线客服</div>
+        </div>
+        <div class="grid-item">
+            <div class="icon">🎁</div>
+            <div>福利专区</div>
+        </div>
+        <div class="grid-item">
+            <div class="icon">🎮</div>
+            <div>下载中心</div>
+        </div>
+    </div>
+
+</body>
+</html>
+
 </head>
 <body>
 
