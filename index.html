@@ -3,60 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人展示页 (带图片上传)</title>
+    <title>个人展示页 (海外完美自适应版)</title>
     <style>
-        /* 手机端优先的自适应样式 */
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background-color: #f5f7fa; color: #333; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .card { background: white; width: 100%; max-width: 400px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 24px; box-sizing: border-box; text-align: center; }
-        .avatar { width: 90px; height: 90px; border-radius: 50%; background: #e2e8f0; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
-        h1 { font-size: 22px; margin: 0 0 8px 0; }
-        p { font-size: 14px; color: #666; margin: 0 0 24px 0; line-height: 1.5; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background-color: #f5f7fa; color: #333; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .card { background: white; width: 100%; max-width: 430px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; text-align: center; }
+        .avatar { width: 80px; height: 80px; border-radius: 50%; background: #e2e8f0; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        h1 { font-size: 20px; margin: 0 0 8px 0; }
+        p { font-size: 14px; color: #666; margin: 0 0 20px 0; line-height: 1.5; }
         
-        /* 邮件表单样式 */
-        form { text-align: left; border-top: 1px solid #edf2f7; padding-top: 20px; }
-        .form-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #4a5568; text-align: center; }
-        label { display: block; font-size: 13px; color: #718096; margin-bottom: 4px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; margin-bottom: 16px; box-sizing: border-box; font-size: 14px; -webkit-appearance: none; }
-        /* 针对文件上传框的手机端优化 */
-        input[type="file"] { padding: 8px; background: #f8fafc; cursor: pointer; }
-        input:focus, textarea:focus { outline: none; border-color: #3182ce; box-shadow: 0 0 0 3px rgba(66,153,225,0.15); }
-        button { width: 100%; background: #3182ce; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-        button:hover { background: #2b6cb0; }
+        /* 表单容器，确保在各类智能手机端能够完美滚动和自适应 */
+        .form-container { width: 100%; border-top: 1px solid #edf2f7; padding-top: 15px; }
+        iframe { width: 100%; min-height: 500px; border: none; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <!-- 个人信息 -->
-        <div class="avatar">📸</div>
-        <h1>AA钻石回收</h1>
-        <p>填写好你的游戏ID，收款账号，并把你的赠送记录截图发送给我</p>
+        <div class="avatar">🌟</div>
+        <h1>你的名字</h1>
+        <p>欢迎向我提交资料。您可以在下方直接填写信息并上传图片附件。</p>
 
-        <!-- 邮件表单：enctype 属性是上传图片必须带有的 -->
-        <!-- 新的 Web3Forms 兼容性表单（已彻底解决上传限制） -->
-<form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
-    <div class="form-title">提交信息与图片</div>
-    
-    <!-- 1. 填入你的专属 Key（必需） -->
-    <input type="hidden" name="access_key" value="dcf8c382-60e1-4b72-9e3f-3dca6ed2a6a5">
-    
-    <!-- 2. 用户邮箱 -->
-    <label for="email">您的游戏账号和ID</label>
-    <input type="email" name="email" id="email" placeholder="name@example.com" required>
-
-    <!-- 3. 留言内容 -->
-    <label for="message">收款账号</label>
-    <textarea name="message" id="message" rows="3" placeholder="请检查你的收款账户，以免出错..." required></textarea>
-
-    <!-- 4. 图片文件上传框 -->
-    <label for="attachment">上传截图 (限10MB以内)</label>
-    <input type="file" name="attachment" id="attachment" accept="image/*" required>
-
-    <!-- 5. 提交后自动返回你自己的 Vercel 网址，请把下方链接改成你自己的 Vercel 网址 -->
-    
-    <button type="submit">确认提交</button>
-</form>
-
+        <div class="form-container">
+            <!-- ！！！请把下方这段 iframe 换成你在 Tally 后台复制的实际代码 ！！！ -->
+           <iframe data-tally-src="https://tally.so/embed/GxkGbO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="479" frameborder="0" marginheight="0" marginwidth="0" title="/"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        </div>
     </div>
 
 </body>
