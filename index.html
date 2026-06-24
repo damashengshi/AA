@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鑽石官方商城</title>
+    <title>钻石官方商城</title>
     <style>
-        /* 1. 提取圖中的極深墨綠色背景 */
+        /* 全局AA POKER科技感极深墨绿背景 */
         body { 
-            background-color: #030d0a; 
+            background-color: #020907; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             color: #e2e8f0; 
             margin: 0; 
@@ -17,110 +17,135 @@
             align-items: center; 
             min-height: 100vh;
             box-sizing: border-box;
-            scroll-behavior: smooth; /* 讓跳轉到表單時有平滑滾動效果 */
+            scroll-behavior: smooth;
         }
 
-        /* 頂部標題：仿照圖中“鑽石官方商城”字樣 */
-        .main-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 24px;
-            letter-spacing: 1px;
-        }
-        
-        /* 2. 主卡片：帶有微弱翠綠色發光邊框 */
-        .card { 
-            background: rgba(5, 19, 15, 0.6); 
-            width: 100%; 
-            max-width: 460px; 
-            border-radius: 12px; 
-            border: 1px solid #064e3b; /* 墨綠邊框 */
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05); /* 弱翠綠發光 */
-            padding: 24px 16px; 
-            box-sizing: border-box; 
-            text-align: center; 
-            margin-bottom: 24px;
-        }
-        
-        /* 鑽石頭像底色：採用圖中亮眼的翠綠熒光色 */
-        .avatar { 
-            width: 80px; 
-            height: 80px; 
-            border-radius: 50%; 
-            background: #10b981; 
-            margin: 0 auto 16px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 36px; 
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); /* 熒光發光 */
-        }
-        
-        h1 { font-size: 22px; font-weight: bold; margin: 0 0 8px 0; color: #ffffff; }
-        p { font-size: 13px; color: #94a3b8; margin: 0 0 20px 0; line-height: 1.6; }
-        
-        /* 3. 表單容器 */
-        .form-container { 
-            width: 100%; 
-            border-top: 1px solid #064e3b; 
-            padding-top: 20px; 
-            overflow: hidden;
-        }
-        /* 確保 Tally 框架有足夠的高度完整顯示內容 */
-        iframe { width: 100%; min-height: 700px; border: none; }
-
-        /* 分類區域標題：仿照圖中“選擇分類” */
-        .category-title {
-            width: 100%;
-            max-width: 460px;
-            text-align: left;
-            font-size: 14px;
-            color: #10b981; /* 翠綠字 */
-            margin-bottom: 12px;
-            padding-left: 4px;
-            font-weight: bold;
-        }
-
-        /* 4. 底部三列排列布局（自適應手機） */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 電腦端橫向三列 */
-            gap: 12px;
+        /* 统一容器最大宽度，完美适配各类手机端 */
+        .container {
             width: 100%;
             max-width: 460px;
             box-sizing: border-box;
         }
 
-        /* 將卡片包裝為可點擊的無下劃線鏈接 */
+        /* 主标题样式 */
+        .main-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* 科技感微光卡片基类 */
+        .box-card { 
+            background: rgba(4, 18, 14, 0.75); 
+            border: 1px solid #064e3b; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(16, 185, 129, 0.05); 
+            padding: 20px 16px; 
+            box-sizing: border-box; 
+            margin-bottom: 20px;
+        }
+
+        /* 小标题样式 */
+        .section-title {
+            font-size: 14px;
+            color: #10b981; /* 亮荧光绿 */
+            margin: 0 0 12px 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* 公告文字排版 */
+        .notice-text {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 16px;
+        }
+
+        /* 图片自适应容器 */
+        .img-container {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            font-size: 0; /* 消除底部白边 */
+        }
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 表单容器 */
+        .form-container { 
+            width: 100%; 
+            border-top: 1px solid rgba(6, 78, 59, 0.5); 
+            padding-top: 16px; 
+            overflow: hidden;
+        }
+        iframe { width: 100%; min-height: 700px; border: none; }
+
+        /* 三大分类网格布局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
         .grid-link {
             text-decoration: none;
             color: inherit;
         }
 
-        /* 子卡片樣式 */
+        /* 分类子卡片样式 */
         .grid-item {
-            background: #041410;
+            background: #03120e;
             border: 1px solid #064e3b;
-            border-radius: 8px;
-            padding: 20px 10px;
+            border-radius: 10px;
+            padding: 16px 8px;
             text-align: center;
             font-size: 13px;
             color: #94a3b8;
             cursor: pointer;
             transition: all 0.3s ease;
         }
+        /* 点击/悬停交互变亮 */
         .grid-item:hover, .grid-item:active {
-            border-color: #10b981; /* 選中時變成亮翠綠邊框 */
+            border-color: #10b981; 
             color: #ffffff;
-            background: #051e18;
+            background: #05241c;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
         }
         .grid-item .icon {
             font-size: 24px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        /* 手機端屏幕太小時，三列自動變成上下堆疊，防止擠壓 */
+        /* 底部公告栏样式 */
+        .footer-notice {
+            font-size: 11px;
+            color: #64748b;
+            text-align: center;
+            line-height: 1.6;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-top: 1px dashed rgba(6, 78, 59, 0.4);
+            padding-top: 14px;
+        }
+        .alert-highlight {
+            color: #ef4444; /* 醒目红色警告 */
+            font-weight: bold;
+        }
+
+        /* 手机端过小时自动上下堆叠 */
         @media (max-width: 380px) {
             .grid-container {
                 grid-template-columns: 1fr;
@@ -130,54 +155,68 @@
 </head>
 <body>
 
-    <!-- 頂部商城式標題 -->
-    <div class="main-title">鑽石官方商城</div>
+    <div class="container">
+        <!-- 主标题 -->
+        <div class="main-title">钻石官方商城</div>
 
-    <!-- 主展示與表單卡片 -->
-    <div class="card">
-        <div class="avatar">💎</div>
-        <h1>官方線上服務中心</h1>
-        <p>歡迎來到官方專屬空間。<br>如有需求，請在下方提交您的留言與憑證圖片。</p>
+        <!-- 1. 公告栏目卡片 -->
+        <div class="box-card">
+            <div class="section-title">📢 官方公告</div>
+            <div class="notice-text">
+                迄今为止所有线上约局平台中自定义配置最丰富的、体验最好的，满足各种人群不同需求:德州扑克、德州短牌、德州3-1、奥马哈、鱿鱼游戏模式、视频牌桌、蘑菇模式、暴击底池、Jackpot、保险模式。
+            </div>
+            <!-- 公告下方的自适应图片 -->
+            <div class="img-container">
+                <!-- 直接通过链接展示你发送的德州科技感背景图 -->
+                <img src="https://squarespace-cdn.com" alt="AA POKER">
+            </div>
+        </div>
 
-        <!-- 給表單增加錨點標記，方便一鍵跳轉定位 -->
-        <div class="form-container" id="contact-form">
-            <!-- 已成功填入你的專屬 Tally 表單 -->
-            <iframe data-tally-src="https://tally.so/embed/GxkGbO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="894" frameborder="0" marginheight="0" marginwidth="0" title="/"></iframe>
+        <!-- 2. 三大分类导航区 -->
+        <div class="grid-container">
+            <!-- 充值钻石 -> 跳转外部H5 -->
+            <a href="https://h5.9v3v.com/" target="_blank" class="grid-link">
+                <div class="grid-item">
+                    <div class="icon">💰</div>
+                    <div>充值钻石</div>
+                </div>
+            </a>
+
+            <!-- 回收钻石 -> 平滑滚动到下方Tally表单 -->
+            <a href="#tally-form-box" class="grid-link">
+                <div class="grid-item">
+                    <div class="icon">🔄</div>
+                    <div>回收钻石</div>
+                </div>
+            </a>
+
+            <!-- 下载中心 -> 跳转官网 -->
+            <a href="https://aapoker.app/" target="_blank" class="grid-link">
+                <div class="grid-item">
+                    <div class="icon">📥</div>
+                    <div>下载中心</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 3. Tally表单核心业务卡片 -->
+        <div class="box-card" id="tally-form-box">
+            <div class="section-title">💎 钻石回收业务受理</div>
+            <div class="form-container">
+                <!-- 成功嵌套你的专属 Tally 表单 -->
+                <iframe data-tally-src="https://tally.so" loading="lazy" width="100%" height="894" frameborder="0" marginheight="0" marginwidth="0" title="/"></iframe>
+            </div>
+        </div>
+
+        <!-- 4. 底部公告栏 -->
+        <div class="footer-notice">
+            <span class="alert-highlight">⚠️ 提示：请认真填写谨防被骗</span><br>
+            迄今为止所有线上约局平台中自定义配置最丰富的
         </div>
     </div>
 
-    <!-- 底部快捷分類排列區 -->
-    <div class="category-title">⚏ 快捷導航</div>
-    <div class="grid-container">
-        
-        <!-- 卡片 1：充值鑽石 -> 跳轉外部 H5 -->
-        <a href="https://9v3v.com" target="_blank" class="grid-link">
-            <div class="grid-item">
-                <div class="icon">💰</div>
-                <div>充值鑽石</div>
-            </div>
-        </a>
-
-        <!-- 卡片 2：回收鑽石 -> 平滑滾動到上方 Tally 表單 -->
-        <a href="#contact-form" class="grid-link">
-            <div class="grid-item">
-                <div class="icon">🔄</div>
-                <div>回收鑽石</div>
-            </div>
-        </a>
-
-        <!-- 卡片 3：下載中心 -> 跳轉指定下載地址 -->
-        <a href="https://aapoker.app" target="_blank" class="grid-link">
-            <div class="grid-item">
-                <div class="icon">📥</div>
-                <div>下載中心</div>
-            </div>
-        </a>
-
-    </div>
-
-    <!-- 載入 Tally 官方嵌入控制腳本，確保表單加載流暢 -->
-    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+    <!-- 载入 Tally 官方控制脚本，保障图片上传等交互的流畅性 -->
+    <script>var d=document,w="https://tally.so",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
 </body>
 </html>
