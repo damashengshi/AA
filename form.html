@@ -12,9 +12,10 @@
             width: 100%;
             height: 100%;
             background-color: #020907;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
         }
-        /* 顶部提供一个返回按钮，方便用户随时点错返回主商城 */
+        /* 顶部提供一个返回按钮 */
         .back-bar {
             width: 100%;
             background-color: #04120e;
@@ -23,6 +24,8 @@
             box-sizing: border-box;
             display: flex;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
         .back-btn {
             color: #10b981;
@@ -33,36 +36,186 @@
             align-items: center;
             gap: 4px;
         }
+
+        /* 顶部主标题与提醒区域 */
+        .header-notice-area {
+            width: 100%;
+            background-color: #020907;
+            text-align: center;
+            padding: 16px 16px 8px 16px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #04120e;
+        }
+        .main-title {
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            color: #34d399; /* 荧光绿 */
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+        .sub-notice {
+            margin: 2px 0;
+            font-size: 13px;
+            color: #94a3b8; /* 浅灰文字 */
+            line-height: 1.5;
+        }
+        /* 同步提交按钮的荧光绿 */
+        .green-highlight {
+            color: #10b981; 
+            font-weight: bold;
+        }
+        .gold-highlight {
+            color: #fbbf24; /* 金黄色高亮 */
+            font-weight: bold;
+        }
+
+        /* 表单外层容器 */
         .form-wrapper {
             width: 100%;
-            height: calc(100% - 45px); /* 减去顶部返回栏的高度 */
+            height: calc(100% - 45px - 95px); 
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            background-color: #020907;
         }
-        /* 你的 Tally 专属全屏无缝适配样式 */
+        /* iframe 样式 */
         iframe {
             width: 100%;
             height: 100%;
             border: none;
             display: block;
         }
+
+        /* 全屏覆盖遮罩结果页 */
+        .toast-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #020907; 
+            z-index: 99999 !important; 
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 24px;
+            text-align: center;
+        }
+
+        /* 成功徽章 */
+        .success-icon-box {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* 提交成功文本 */
+        .success-msg-line1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+        .success-msg-line2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fbbf24; 
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .success-msg-line3 {
+            font-size: 14px;
+            color: #a7f3d0; 
+            margin-bottom: 40px;
+        }
+
+        .redirect-countdown {
+            font-size: 12px;
+            color: #475569;
+            border-top: 1px solid #064e3b;
+            padding-top: 16px;
+            width: 160px;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 顶部导航，方便客户返回主商城 -->
+    <!-- 顶部导航 -->
     <div class="back-bar">
         <a href="index.html" class="back-btn">⬅ 返回钻石商城</a>
     </div>
 
-    <!-- 专属表单无缝撑满全屏区域 -->
-    <div class="form-wrapper">
-        <!-- 成功嵌套你的专属 Tally 代码组件 -->
-        <iframe data-tally-src="https://tally.so/embed/GxkGbO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="894" frameborder="0" marginheight="0" marginwidth="0" title="/"></iframe>
+    <!-- 顶部主标题与优化后的提示内容 -->
+    <div class="header-notice-area">
+        <div class="main-title">钻石回收凭证</div>
+        <div class="sub-notice">按步骤提交数据后点击<span class="green-highlight">绿色</span>按钮提交即可</div>
+        <div class="sub-notice">耐心等待<span class="gold-highlight">60分钟</span>内，转款到账</div>
     </div>
 
-    <!-- 载入你的 Tally 专属控制脚本 -->
+    <!-- 专属表单全屏区域（已更新高度参数） -->
+    <div class="form-wrapper">
+        <!-- 已为您将原本的 height="894" 精准更新为最新的 height="774" -->
+        <iframe data-tally-src="https://tally.so/embed/GxkGbO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="774" frameborder="0" marginheight="0" marginwidth="0" title="/"></iframe>
+    </div>
+
+    <!-- 全屏覆盖遮罩结果页 -->
+    <div id="successToast" class="toast-fullscreen">
+        <div class="success-icon-box">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+                <path d="M5 13L9 17L19 7" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <div class="success-msg-line1">你也完成了所有提交</div>
+        <div class="success-msg-line2">静心等待60分钟内会转款账单</div>
+        <div class="success-msg-line3">感谢你的支持与配合</div>
+        
+        <div class="redirect-countdown">正在安全返回首页...</div>
+    </div>
+
+    <!-- 载入您的 Tally 专属控制脚本 -->
     <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+    <!-- 核心拦截跳转逻辑 -->
+    <script>
+        window.addEventListener('message', function(event) {
+            if (event.data && typeof event.data === 'string') {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.eventName === 'formSubmitted' || data.event === 'Tally.FormSubmitted') {
+                        showToastAndRedirect();
+                    }
+                } catch (e) {}
+            }
+            if (event.data && event.data.eventName === 'formSubmitted') {
+                showToastAndRedirect();
+            }
+        });
+
+        function showToastAndRedirect() {
+            const toast = document.getElementById('successToast');
+            toast.style.display = 'flex';
+            setTimeout(function() {
+                window.location.href = 'index.html'; 
+            }, 3000);
+        }
+    </script>
 
 </body>
 </html>
