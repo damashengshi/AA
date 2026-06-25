@@ -15,14 +15,17 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            min-height: 100vh;
+            min-height: 100vh; /* 撑满屏幕初始高度 */
             box-sizing: border-box;
         }
 
+        /* 【核心修改】去除强行限制的高宽，改为纯自适应弹性列排版 */
         .container {
             width: 100%;
             max-width: 460px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
 
         .main-title {
@@ -57,7 +60,10 @@
             color: #cbd5e1;
             line-height: 1.6;
             text-align: justify;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+        }
+        .notice-text:last-of-type {
+            margin-bottom: 16px; /* 最后一项留出间距给图片 */
         }
 
         .img-container {
@@ -78,7 +84,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 24px; /* 增大下方间距，与底部公告平滑过渡 */
         }
 
         .grid-link {
@@ -109,7 +115,7 @@
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
         }
 
-        /* 纯粹的独立图片发光容器：完全没有误差 */
+        /* 纯粹的独立图片发光容器 */
         .icon-box {
             width: 52px;
             height: 52px;
@@ -126,18 +132,20 @@
         .icon-box img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 让单张图片完美撑满圆形剪裁圈 */
+            object-fit: cover; 
         }
 
+        /* 【核心修改】移除强制顶高的 margin-top: auto，改为由内容自动向下自然推导排列 */
         .footer-notice {
             font-size: 11px;
             color: #64748b;
             text-align: center;
             line-height: 1.6;
-            margin-top: auto; 
-            padding-top: 14px;
+            padding-top: 16px;
+            padding-bottom: 24px; /* 留出手机底部的安全视距 */
             width: 100%;
             border-top: 1px dashed rgba(6, 78, 59, 0.4);
+            box-sizing: border-box;
         }
         .alert-highlight {
             color: #ef4444; 
@@ -147,13 +155,14 @@
         @media (max-width: 380px) {
             .grid-container {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" style="display: flex; flex-direction: column; min-height: 92vh;">
+    <div class="container">
         <!-- 主标题 -->
         <div class="main-title">钻石官方商城</div>
 
@@ -163,21 +172,21 @@
             <div class="notice-text">
                 所有操作均可在网站内实现，请认真填写正确你的游戏账户和游戏ID，以免出现充值或提现不到账的情况
             </div>
-           <div class="notice-text">
+            <div class="notice-text">
                 使用苹果大陆ID用户，可以直接在苹果商店搜索“Dicemotionarena”下载AA poker正版大陆商店包，账号系统通用，请放心使用
             </div>
-           <div class="notice-text">
-                优惠活动添加客服XV：datangbeifeng
+            <div class="notice-text" style="color: #f59e0b; font-weight: bold;">
+                ✨ 优惠活动添加客服XV：datangbeifeng
             </div>
             <div class="img-container">
                 <img src="logo.jpg" alt="AA POKER">
             </div>
         </div>
 
-        <!-- 2. 三大分类导航区（已全面对接独立高清定制图标文件） -->
+        <!-- 2. 三大分类导航区 -->
         <div class="grid-container">
             <!-- 2.1 充值钻石 -->
-            <a href="pay.html" target="_blank" class="grid-link">
+            <a href="pay.html" class="grid-link">
                 <div class="grid-item">
                     <div class="icon-box"><img src="icon1.jpg" alt="充值"></div>
                     <div>充值钻石</div>
@@ -201,7 +210,7 @@
             </a>
         </div>
 
-        <!-- 3. 底部公告栏 -->
+        <!-- 3. 【全自动上下匹配】底部公告栏 -->
         <div class="footer-notice">
             <span class="alert-highlight">⚠️ 提示：请认真填写谨防不到账的情况</span><br>
             由于填写错误导致的不到账行为，平台概不负责

@@ -47,19 +47,41 @@
             font-weight: bold;
             color: #ffffff;
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        /* 主标题下方的两段公告文字卡片 */
+        .sub-notice-box {
+            background: rgba(6, 78, 59, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .sub-text-orange {
+            font-size: 13px;
+            color: #f97316; /* 警示橙色提示游戏ID */
+            font-weight: bold;
+            margin-bottom: 6px; /* 调整行间距 */
+        }
+        .sub-text-yellow {
+            font-size: 13px;
+            color: #f59e0b; /* 亮眼黄色提示客服 */
+            font-weight: bold;
         }
 
         /* 全局去下划线链接包装 */
         .item-link {
             text-decoration: none;
             display: block;
-            margin-bottom: 14px; /* 框与框之间的垂直间距 */
+            margin-bottom: 14px; 
         }
         
-        /* 完美复刻：商品条目卡片框 */
+        /* 商品条目卡片框 */
         .product-card { 
             background: #04120e; 
             border: 1px solid #064e3b; 
@@ -68,11 +90,10 @@
             box-sizing: border-box; 
             display: flex;
             align-items: center;
-            gap: 16px; /* 左侧图片与右侧文字的间距 */
+            gap: 16px; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             transition: all 0.2s ease;
         }
-        /* 点击或悬停时的微光反馈 */
         .product-card:hover, .product-card:active {
             border-color: #10b981;
             background: #061c16;
@@ -87,7 +108,7 @@
             overflow: hidden;
             background: #020907;
             border: 1px solid rgba(16, 185, 129, 0.2);
-            flex-shrink: 0; /* 防止图片被挤压变形 */
+            flex-shrink: 0; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -98,15 +119,14 @@
             object-fit: cover;
         }
 
-        /* 右侧文字排版区域 */
+        /* 右侧文字排版 */
         .info-box {
             display: flex;
             flex-direction: column;
-            gap: 6px; /* 文字行与行之间的纵向微调 */
+            gap: 6px; 
             text-align: left;
         }
 
-        /* 商品标题：翠绿色带微弱发光 */
         .prod-title {
             font-size: 15px;
             font-weight: 600;
@@ -114,14 +134,12 @@
             letter-spacing: 0.5px;
         }
 
-        /* 价格：高亮天蓝色 */
         .prod-price {
             font-size: 15px;
             font-weight: bold;
-            color: #3b82f6; /* 图中经典明亮的天蓝色 */
+            color: #3b82f6; 
         }
 
-        /* 库存：草绿色小字 */
         .prod-stock {
             font-size: 12px;
             color: #10b981;
@@ -139,7 +157,13 @@
         <!-- 页面大标题 -->
         <div class="main-title">钻石充值中心</div>
 
-        <!-- ================= 商品框 1 (8000钻石) ================= -->
+        <!-- 【已调换位置】主标题下方的两段关键文字公告 -->
+        <div class="sub-notice-box">
+            <div class="sub-text-orange">📌 请认真填写正确的游戏ID</div>
+            <div class="sub-text-yellow">⚠️ 未收到钻石请主页添加客服VX</div>
+        </div>
+
+       <!-- ================= 商品框 1 (8000钻石) ================= -->
         <!-- !!! 将下面 href="这里换成你的链接1" 替换成该档位的实际付款网址 !!! -->
         <a href="https://h5.9v3v.com/#/pages/goods/paydyj?goods_id=24" target="_blank" class="item-link">
             <div class="product-card">
