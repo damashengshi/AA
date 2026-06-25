@@ -71,7 +71,7 @@
         .section-title {
             font-size: 14px;
             color: #10b981; 
-            margin: 0 0 12px 0;
+            margin: 0 0 14px 0;
             font-weight: bold;
         }
         
@@ -81,44 +81,44 @@
             color: #cbd5e1;
             line-height: 1.6;
             text-align: justify;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
         }
 
-        /* 3张图片横向排版网格，完美适配手机 */
-        .img-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 18px 0;
+        /* 【核心改动】修改为纵向垂直队列排列 */
+        .img-vertical-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* 图片与图片之间的纵向间距 */
             width: 100%;
+            margin: 12px 0;
         }
 
-        /* 单个图片框展示款样式 */
+        /* 优化后的独立图片容器：保证完整展示不裁剪 */
         .img-item {
             width: 100%;
-            aspect-ratio: 1 / 1; /* 保持1:1正方形 */
-            border-radius: 8px;
-            border: 1px dashed #064e3b;
+            border-radius: 10px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
             background: rgba(2, 9, 7, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
             box-sizing: border-box;
-            position: relative;
+            overflow: hidden;
+            font-size: 0; /* 彻底消除图片底部间隙 */
         }
         .img-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* 图片自适应平铺 */
+            height: auto; /* 核心：高度自动弹性扩展，完美展现整张大图 */
             display: block;
         }
-        /* 图片未上传或展示前的灰色占位文字 */
+        
+        /* 暂无图片时的科技感虚线占位框样式 */
         .img-placeholder {
-            font-size: 11px;
+            width: 100%;
+            padding: 30px 10px;
+            border: 1px dashed #064e3b;
+            border-radius: 10px;
+            font-size: 13px;
             color: #475569;
             text-align: center;
-            padding: 4px;
+            box-sizing: border-box;
         }
 
         /* 温馨提示模块样式 */
@@ -126,23 +126,20 @@
             background: rgba(239, 68, 68, 0.05);
             border: 1px solid rgba(239, 68, 68, 0.2);
             border-radius: 10px;
-            padding: 12px;
+            padding: 14px;
             margin-bottom: 24px;
             box-sizing: border-box;
         }
         .tip-title {
             font-size: 13px;
-            color: #ef4444; /* 醒目红色 */
+            color: #ef4444; 
             font-weight: bold;
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
         .tip-content {
             font-size: 12px;
             color: #94a3b8;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         /* 下一步高级发光长条按钮 */
@@ -162,22 +159,12 @@
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: auto; /* 自动顶到容器最下方 */
+            margin-top: auto; 
         }
         .next-btn:active {
             transform: scale(0.98);
             box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
             background: linear-gradient(135deg, #059669 0%, #047857 100%);
-        }
-
-        /* 手机屏极小时的微调 */
-        @media (max-width: 350px) {
-            .img-grid {
-                grid-template-columns: 1fr; /* 屏幕过小时改为纵向 */
-            }
-            .img-item {
-                aspect-ratio: 2.5 / 1;
-            }
         }
     </style>
 </head>
@@ -199,22 +186,25 @@
                 请严格按照以下提示操作后，点击下一步上传操作凭证后提交申请。
             </div>
 
-            <!-- 2. 三个图片展示框 (预留位置，你可以把下面的图片名字换成你的教程截图) -->
-            <div class="img-grid">
-                <!-- 图片1 -->
+            <!-- 2. 【已重构】三张指示图片竖着向下完整排列区 -->
+            <div class="img-vertical-list">
+                <!-- 第一步图片 -->
                 <div class="img-item">
-                    <img src="step1.jpg" alt="步骤一" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="img-placeholder" style="display:none;">步骤一<br>截图展示</div>
+                    <!-- 如果检测到本地没有图片，会自动无缝无错切换成下方的虚线框提示 -->
+                    <img src="step1.jpg" alt="步骤一截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="img-placeholder" style="display:none;">⚏ 步骤一 截图流程说明 ⚏</div>
                 </div>
-                <!-- 图片2 -->
+                
+                <!-- 第二步图片 -->
                 <div class="img-item">
-                    <img src="step2.jpg" alt="步骤二" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="img-placeholder" style="display:none;">步骤二<br>截图展示</div>
+                    <img src="step2.jpg" alt="步骤二截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="img-placeholder" style="display:none;">⚏ 步骤二 截图流程说明 ⚏</div>
                 </div>
-                <!-- 图片3 -->
+                
+                <!-- 第三步图片 -->
                 <div class="img-item">
-                    <img src="step3.jpg" alt="步骤三" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="img-placeholder" style="display:none;">步骤三<br>截图展示</div>
+                    <img src="step3.jpg" alt="步骤三截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="img-placeholder" style="display:none;">⚏ 步骤三 截图流程说明 ⚏</div>
                 </div>
             </div>
         </div>
