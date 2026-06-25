@@ -11,7 +11,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             color: #e2e8f0; 
             margin: 0; 
-            padding: 20px 12px; 
+            padding: 0 12px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -25,13 +25,38 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            min-height: 94vh;
+            /* 【核心优化：动态安全边距】 */
+            padding-top: 110px;  /* 预留出顶部固定吸顶区域的高度，防止内容被盖住 */
+            padding-bottom: 80px; /* 预留出底部固定吸底按钮的高度，防止内容被盖住 */
+        }
+
+        /* 【核心重构：永久固定悬浮顶部的吸顶包裹层】 */
+        .top-fixed-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* 采用带有透明度的极深墨绿，让上滑的内容能隐约透出，极具高级游戏沉浸感 */
+            background: linear-gradient(to bottom, #020907 85%, rgba(2, 9, 7, 0) 100%);
+            padding: 16px 12px 20px 12px;
+            box-sizing: border-box;
+            z-index: 1000; /* 确保层级高于内容卡片 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .top-inner-container {
+            width: 100%;
+            max-width: 436px; /* 与下方卡片宽度完美对齐 */
+            display: flex;
+            flex-direction: column;
         }
 
         /* 顶部返回导航栏 */
         .back-bar {
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
         }
@@ -51,7 +76,7 @@
             font-weight: bold;
             color: #ffffff;
             text-align: center;
-            margin-bottom: 20px;
+            margin: 0;
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
         }
@@ -84,16 +109,16 @@
             margin-bottom: 16px;
         }
 
-        /* 【核心改动】修改为纵向垂直队列排列 */
+        /* 修改为纵向垂直队列排列 */
         .img-vertical-list {
             display: flex;
             flex-direction: column;
-            gap: 16px; /* 图片与图片之间的纵向间距 */
+            gap: 16px; 
             width: 100%;
             margin: 12px 0;
         }
 
-        /* 优化后的独立图片容器：保证完整展示不裁剪 */
+        /* 优化后的独立图片容器 */
         .img-item {
             width: 100%;
             border-radius: 10px;
@@ -101,11 +126,11 @@
             background: rgba(2, 9, 7, 0.6);
             box-sizing: border-box;
             overflow: hidden;
-            font-size: 0; /* 彻底消除图片底部间隙 */
+            font-size: 0; 
         }
         .img-item img {
             width: 100%;
-            height: auto; /* 核心：高度自动弹性扩展，完美展现整张大图 */
+            height: auto; 
             display: block;
         }
         
@@ -142,10 +167,24 @@
             line-height: 1.6;
         }
 
-        /* 下一步高级发光长条按钮 */
+        /* 永久固定悬浮底部的下一步发光长条按钮 */
+        .next-btn-fixed-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, #020907 80%, rgba(2, 9, 7, 0) 100%);
+            padding: 12px 16px 20px 16px; 
+            box-sizing: border-box;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+        }
+
         .next-btn {
             display: block;
             width: 100%;
+            max-width: 436px; /* 与上层卡片最大宽度完美对齐线 */
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
             border: none;
@@ -156,10 +195,9 @@
             text-align: center;
             text-decoration: none;
             box-sizing: border-box;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: auto; 
+            transition: all 0.2s ease;
         }
         .next-btn:active {
             transform: scale(0.98);
@@ -170,15 +208,20 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- 顶部返回栏 -->
-        <div class="back-bar">
-            <a href="index.html" class="back-btn">⬅ 返回商城首页</a>
+    <!-- 【核心新增：顶部固定吸顶包裹层】 -->
+    <div class="top-fixed-wrapper">
+        <div class="top-inner-container">
+            <!-- 顶部返回栏 -->
+            <div class="back-bar">
+                <a href="index.html" class="back-btn">⬅ 返回商城首页</a>
+            </div>
+            <!-- 主标题 -->
+            <div class="main-title">回收钻石流程</div>
         </div>
+    </div>
 
-        <!-- 主标题 -->
-        <div class="main-title">回收钻石流程</div>
-
+    <!-- 中部滚动内容区 -->
+    <div class="container">
         <!-- 1. 公告栏卡片 -->
         <div class="box-card">
             <div class="section-title">📢 操作须知</div>
@@ -186,11 +229,10 @@
                 严格按照以下提示操作，点击下一步上传操作凭证后提交
             </div>
 
-            <!-- 2. 【已重构】三张指示图片竖着向下完整排列区 -->
+            <!-- 2. 三张指示图片竖着向下完整排列区 -->
             <div class="img-vertical-list">
                 <!-- 第一步图片 -->
                 <div class="img-item">
-                    <!-- 如果检测到本地没有图片，会自动无缝无错切换成下方的虚线框提示 -->
                     <img src="step1.jpg" alt="步骤一截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="img-placeholder" style="display:none;">⚏ 步骤一 截图流程说明 ⚏</div>
                 </div>
@@ -216,8 +258,11 @@
                 操作完以上流程后，点击赠送记录，截图保存，方便下一步上传
             </div>
         </div>
+    </div>
 
-        <!-- 4. 跳转下一步按钮 -->
+    <!-- 底部固定吸底包裹层 -->
+    <div class="next-btn-fixed-wrapper">
+        <!-- 跳转下一步按钮 -->
         <a href="form.html" class="next-btn">已经操作无误后下一步</a>
     </div>
 
