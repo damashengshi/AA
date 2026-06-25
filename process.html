@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>回收钻石流程</title>
+    <style>
+        /* 全局AA POKER科技感极深墨绿背景 */
+        body { 
+            background-color: #020907; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            color: #e2e8f0; 
+            margin: 0; 
+            padding: 20px 12px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 94vh;
+        }
+
+        /* 顶部返回导航栏 */
+        .back-bar {
+            width: 100%;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .back-btn {
+            color: #10b981;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 标题样式 */
+        .main-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* 核心卡片容器 */
+        .box-card { 
+            background: rgba(4, 18, 14, 0.75); 
+            border: 1px solid #064e3b; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(16, 185, 129, 0.05); 
+            padding: 22px 16px; 
+            box-sizing: border-box; 
+            margin-bottom: 20px;
+        }
+
+        /* 荧光绿小标题 */
+        .section-title {
+            font-size: 14px;
+            color: #10b981; 
+            margin: 0 0 12px 0;
+            font-weight: bold;
+        }
+        
+        /* 公告与提示文字排版 */
+        .notice-text {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 8px;
+        }
+
+        /* 3张图片横向排版网格，完美适配手机 */
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 18px 0;
+            width: 100%;
+        }
+
+        /* 单个图片框展示款样式 */
+        .img-item {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* 保持1:1正方形 */
+            border-radius: 8px;
+            border: 1px dashed #064e3b;
+            background: rgba(2, 9, 7, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 图片自适应平铺 */
+            display: block;
+        }
+        /* 图片未上传或展示前的灰色占位文字 */
+        .img-placeholder {
+            font-size: 11px;
+            color: #475569;
+            text-align: center;
+            padding: 4px;
+        }
+
+        /* 温馨提示模块样式 */
+        .tip-box {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 24px;
+            box-sizing: border-box;
+        }
+        .tip-title {
+            font-size: 13px;
+            color: #ef4444; /* 醒目红色 */
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tip-content {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* 下一步高级发光长条按钮 */
+        .next-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto; /* 自动顶到容器最下方 */
+        }
+        .next-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        /* 手机屏极小时的微调 */
+        @media (max-width: 350px) {
+            .img-grid {
+                grid-template-columns: 1fr; /* 屏幕过小时改为纵向 */
+            }
+            .img-item {
+                aspect-ratio: 2.5 / 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 顶部返回栏 -->
+        <div class="back-bar">
+            <a href="index.html" class="back-btn">⬅ 返回商城首页</a>
+        </div>
+
+        <!-- 主标题 -->
+        <div class="main-title">回收钻石流程</div>
+
+        <!-- 1. 公告栏卡片 -->
+        <div class="box-card">
+            <div class="section-title">📢 操作须知</div>
+            <div class="notice-text">
+                请严格按照以下提示操作后，点击下一步上传操作凭证后提交申请。
+            </div>
+
+            <!-- 2. 三个图片展示框 (预留位置，你可以把下面的图片名字换成你的教程截图) -->
+            <div class="img-grid">
+                <!-- 图片1 -->
+                <div class="img-item">
+                    <img src="step1.jpg" alt="步骤一" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="img-placeholder" style="display:none;">步骤一<br>截图展示</div>
+                </div>
+                <!-- 图片2 -->
+                <div class="img-item">
+                    <img src="step2.jpg" alt="步骤二" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="img-placeholder" style="display:none;">步骤二<br>截图展示</div>
+                </div>
+                <!-- 图片3 -->
+                <div class="img-item">
+                    <img src="step3.jpg" alt="步骤三" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="img-placeholder" style="display:none;">步骤三<br>截图展示</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 温馨提示卡片 -->
+        <div class="tip-box">
+            <div class="tip-title">⚠️ 温馨提示</div>
+            <div class="tip-content">
+                请操作完以上流程后，点击赠送记录，截图保存，方便下一步上传。
+            </div>
+        </div>
+
+        <!-- 4. 跳转下一步按钮 -->
+        <a href="form.html" class="next-btn">已经操作无误后下一步</a>
+    </div>
+
+</body>
+</html>
