@@ -86,12 +86,12 @@
             color: inherit;
         }
 
-        /* 分类子卡片 */
+        /* 分类子卡片优化 */
         .grid-item {
             background: #03120e;
             border: 1px solid #064e3b;
             border-radius: 10px;
-            padding: 14px 4px;
+            padding: 16px 4px;
             text-align: center;
             font-size: 12px;
             color: #94a3b8;
@@ -100,6 +100,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-sizing: border-box;
         }
         .grid-item:hover, .grid-item:active {
             border-color: #10b981; 
@@ -108,10 +109,10 @@
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
         }
 
-        /* 高級自適應圖片裁切容器：精準提取大圖中的三個部分 */
+        /* 纯粹的独立图片发光容器：完全没有误差 */
         .icon-box {
-            width: 54px;
-            height: 54px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             margin-bottom: 8px;
             overflow: hidden;
@@ -123,14 +124,10 @@
             align-items: center;
         }
         .icon-box img {
-            width: 170px; /* 控制大图缩放比例 */
-            height: auto;
-            max-width: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 让单张图片完美撑满圆形剪裁圈 */
         }
-        /* 针对1、2、3个按钮精确定位大图的左、中、右区域 */
-        .icon-1 img { object-position: left center; }
-        .icon-2 img { object-position: center center; }
-        .icon-3 img { object-position: right center; }
 
         .footer-notice {
             font-size: 11px;
@@ -171,12 +168,12 @@
             </div>
         </div>
 
-        <!-- 2. 三大分类导航区（已全面升级为高科技定制图标） -->
+        <!-- 2. 三大分类导航区（已全面对接独立高清定制图标文件） -->
         <div class="grid-container">
             <!-- 2.1 充值钻石 -->
             <a href="https://9v3v.com" target="_blank" class="grid-link">
                 <div class="grid-item">
-                    <div class="icon-box icon-1"><img src="cards.jpg" style="object-fit: cover; transform: translateX(12px);"></div>
+                    <div class="icon-box"><img src="icon1.jpg" alt="充值"></div>
                     <div>充值钻石</div>
                 </div>
             </a>
@@ -184,7 +181,7 @@
             <!-- 2.2 回收钻石 -->
             <a href="form.html" class="grid-link">
                 <div class="grid-item">
-                    <div class="icon-box icon-2"><img src="cards.jpg" style="object-fit: cover; transform: scale(1.15);"></div>
+                    <div class="icon-box"><img src="icon2.jpg" alt="回收"></div>
                     <div>回收钻石</div>
                 </div>
             </a>
@@ -192,7 +189,7 @@
             <!-- 2.3 下载中心 -->
             <a href="https://aapoker.app" target="_blank" class="grid-link">
                 <div class="grid-item">
-                    <div class="icon-box icon-3"><img src="cards.jpg" style="object-fit: cover; transform: translateX(-12px);"></div>
+                    <div class="icon-box"><img src="icon3.jpg" alt="下载"></div>
                     <div>下载中心</div>
                 </div>
             </a>
