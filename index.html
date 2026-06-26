@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>钻石官方商城</title>
+    <title>钻石官方商城 - AA POKER</title>
     <style>
-        /* 全局AA POKER科技感极深墨绿背景 */
+        /* 全局高科技墨绿放射渐变背景 */
         body { 
-            background-color: #020907; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: radial-gradient(circle at top, #05231a 0%, #010806 65%, #000000 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; 
             color: #e2e8f0; 
             margin: 0; 
-            padding: 20px 12px; 
+            padding: 24px 14px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            min-height: 100vh; /* 撑满屏幕初始高度 */
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        /* 【核心修改】去除强行限制的高宽，改为纯自适应弹性列排版 */
+        /* 自适应弹性列排版核心容器 */
         .container {
             width: 100%;
             max-width: 460px;
@@ -28,63 +28,139 @@
             flex-direction: column;
         }
 
+        /* 主标题：立体双色渐变字 */
         .main-title {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 800;
             color: #ffffff;
             text-align: center;
             margin-bottom: 20px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+            letter-spacing: 2px;
+            background: linear-gradient(to bottom, #ffffff 40%, #a7f3d0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* =================================================== */
+        /* 【核心重塑】双图滚动轮播区域样式 */
+        /* =================================================== */
+        .slider-wrapper {
+            width: 100%;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+            margin-bottom: 20px;
+            aspect-ratio: 2 / 1; /* 严丝合缝锁定 2:1 宽高比，防止页面抖动 */
         }
         
+        .slider-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* 采用高级透明度淡入淡出，比生硬的左右位移更具质感 */
+        .slider-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+        }
+        
+        .slider-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 轮播指示小圆点 */
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-dot.active {
+            background: #10b981;
+            width: 16px; /* 激活时展开拉长 */
+            border-radius: 4px;
+            box-shadow: 0 0 8px #10b981;
+        }
+        /* =================================================== */
+
+        /* 公告面板：半透明高级玻璃拟态 (Glassmorphism) */
         .box-card { 
-            background: rgba(4, 18, 14, 0.75); 
-            border: 1px solid #064e3b; 
-            border-radius: 14px; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(16, 185, 129, 0.05); 
-            padding: 20px 16px; 
+            background: linear-gradient(135deg, rgba(5, 25, 19, 0.75) 0%, rgba(2, 13, 10, 0.85) 100%); 
+            border: 1px solid rgba(16, 185, 129, 0.2); 
+            border-radius: 16px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+            padding: 20px; 
             box-sizing: border-box; 
             margin-bottom: 20px;
+            backdrop-filter: blur(4px);
         }
 
         .section-title {
-            font-size: 14px;
+            font-size: 15px;
             color: #10b981; 
             margin: 0 0 12px 0;
             font-weight: bold;
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
         }
         
         .notice-text {
             font-size: 13px;
-            color: #cbd5e1;
+            color: #94a3b8;
             line-height: 1.6;
             text-align: justify;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .notice-text:last-of-type {
-            margin-bottom: 16px; /* 最后一项留出间距给图片 */
+            margin-bottom: 0;
         }
 
-        .img-container {
-            width: 100%;
+        /* 客服高亮框 */
+        .kefu-highlight {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px dashed rgba(245, 158, 11, 0.25);
+            padding: 10px 12px;
             border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            font-size: 0;
-        }
-        .img-container img {
-            width: 100%;
-            height: auto;
-            display: block;
+            color: #f59e0b;
+            font-weight: bold;
         }
 
-        /* 三大分类网格布局 */
+        /* 导航网格：优化间距 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
             gap: 12px;
-            margin-bottom: 24px; /* 增大下方间距，与底部公告平滑过渡 */
+            margin-bottom: 24px;
         }
 
         .grid-link {
@@ -92,42 +168,51 @@
             color: inherit;
         }
 
-        /* 分类子卡片优化 */
+        /* 升级子卡片：高亮微光霓虹边框 */
         .grid-item {
-            background: #03120e;
-            border: 1px solid #064e3b;
-            border-radius: 10px;
-            padding: 16px 4px;
+            background: linear-gradient(to bottom, #031511 0%, #010a08 100%);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 14px;
+            padding: 18px 4px;
             text-align: center;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             color: #94a3b8;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
         }
+        
+        /* 鼠标移入/手机点击时的悬浮霓虹特效 */
         .grid-item:hover, .grid-item:active {
             border-color: #10b981; 
             color: #ffffff;
-            background: #05241c;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+            background: linear-gradient(to bottom, #063126 0%, #021a14 100%);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+            transform: translateY(-2px);
         }
 
-        /* 纯粹的独立图片发光容器 */
+        /* 精细发光圆环图标框 */
         .icon-box {
-            width: 52px;
-            height: 52px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             overflow: hidden;
-            background-color: #041410;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+            background-color: #020e0b;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: transform 0.3s ease;
+        }
+        .grid-item:hover .icon-box {
+            transform: scale(1.05);
+            border-color: #34d399;
         }
         .icon-box img {
             width: 100%;
@@ -135,16 +220,16 @@
             object-fit: cover; 
         }
 
-        /* 【核心修改】移除强制顶高的 margin-top: auto，改为由内容自动向下自然推导排列 */
+        /* 优雅的虚线页脚 */
         .footer-notice {
             font-size: 11px;
-            color: #64748b;
+            color: #475569;
             text-align: center;
             line-height: 1.6;
-            padding-top: 16px;
-            padding-bottom: 24px; /* 留出手机底部的安全视距 */
+            padding-top: 18px;
+            padding-bottom: 20px;
             width: 100%;
-            border-top: 1px dashed rgba(6, 78, 59, 0.4);
+            border-top: 1px dashed rgba(6, 78, 59, 0.3);
             box-sizing: border-box;
         }
         .alert-highlight {
@@ -152,10 +237,20 @@
             font-weight: bold;
         }
 
+        /* 移动端特殊窄屏优化 */
         @media (max-width: 380px) {
             .grid-container {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .grid-item {
+                flex-direction: row;
+                padding: 12px 20px;
+                justify-content: flex-start;
                 gap: 16px;
+            }
+            .icon-box {
+                margin-bottom: 0;
             }
         }
     </style>
@@ -166,56 +261,112 @@
         <!-- 主标题 -->
         <div class="main-title">钻石官方商城</div>
 
-        <!-- 1. 公告栏目卡片 -->
-        <div class="box-card">
-            <div class="section-title">📢 温馨提醒</div>
-            <div class="notice-text">
-                所有操作均可在网站内实现，请认真填写正确你的游戏账户和游戏ID，以免出现充值或提现不到账的情况
+        <!-- 1. 顶部双图无缝滚动品牌区域 -->
+        <div class="slider-wrapper">
+            <div class="slider-container">
+                <!-- 滚动图一（默认展示） -->
+                <div class="slider-slide active">
+                    <img src="logo.jpg" alt="AA POKER 官方主图">
+                </div>
+                <!-- 滚动图二（自动交替展示） -->
+                <div class="slider-slide">
+                    <img src="logo2.jpg" alt="AA POKER 福利活动图">
+                </div>
             </div>
-            <div class="notice-text">
-                使用苹果大陆ID用户，可以直接在苹果商店搜索“Dicemotionarena”下载AA poker正版大陆商店包，账号系统通用，请放心使用
-            </div>
-            <div class="notice-text" style="color: #f59e0b; font-weight: bold;">
-                ✨ 优惠活动添加客服XV：datangbeifeng
-            </div>
-            <div class="img-container">
-                <img src="logo.jpg" alt="AA POKER">
+            <!-- 下方导航圆点 -->
+            <div class="slider-dots">
+                <div class="slider-dot active"></div>
+                <div class="slider-dot"></div>
             </div>
         </div>
 
-        <!-- 2. 三大分类导航区 -->
+        <!-- 2. 信息通知卡片 -->
+        <div class="box-card">
+            <div class="section-title">📢 温馨提醒</div>
+            <div class="notice-text">
+                所有操作均可在网站内实现，请认真填写正确你的游戏账户和游戏ID，以免出现充值或提现不到账的情况。
+            </div>
+            <div class="notice-text">
+                使用苹果大陆ID用户，可以直接在苹果商店搜索“Dicemotionarena”下载AA poker正版大陆商店包，账号系统通用，请放心使用。
+            </div>
+            <div class="notice-text kefu-highlight">
+                ✨ 优惠活动添加客服XV：datangbeifeng
+            </div>
+        </div>
+
+        <!-- 3. 三大分类核心操作区 -->
         <div class="grid-container">
-            <!-- 2.1 充值钻石 -->
+            <!-- 充值 -->
             <a href="pay.html" class="grid-link">
                 <div class="grid-item">
-                    <div class="icon-box"><img src="icon1.jpg" alt="充值"></div>
+                    <div class="icon-box"><img src="icon1.jpg" alt="充值钻石"></div>
                     <div>充值钻石</div>
                 </div>
             </a>
 
-            <!-- 2.2 回收钻石 -->
+            <!-- 回收 -->
             <a href="process.html" class="grid-link">
                 <div class="grid-item">
-                    <div class="icon-box"><img src="icon2.jpg" alt="回收"></div>
+                    <div class="icon-box"><img src="icon2.jpg" alt="回收钻石"></div>
                     <div>回收钻石</div>
                 </div>
             </a>
 
-            <!-- 2.3 下载中心 -->
+            <!-- 下载 -->
             <a href="https://aapoker.app" target="_blank" class="grid-link">
                 <div class="grid-item">
-                    <div class="icon-box"><img src="icon3.jpg" alt="下载"></div>
+                    <div class="icon-box"><img src="icon3.jpg" alt="下载中心"></div>
                     <div>下载中心</div>
                 </div>
             </a>
         </div>
 
-        <!-- 3. 【全自动上下匹配】底部公告栏 -->
+        <!-- 4. 底部安全区域 -->
         <div class="footer-notice">
             <span class="alert-highlight">⚠️ 提示：请认真填写谨防不到账的情况</span><br>
-            由于填写错误导致的不到账行为，平台概不负责
+            Due to typos or errors leading to financial loss, the platform assumes no liability.<br>由于填写错误导致的不到账行为，平台概不负责
         </div>
     </div>
+</div>
+ <!-- 💡 在这里插入您的 JavaScript 控制代码 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slides = document.querySelectorAll('.slider-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            let currentIndex = 0;
+            const intervalTime = 3000; // 设置交替间隔为 3.0 秒
 
+            function changeSlide(nextIndex) {
+                // 清理旧状态
+                slides[currentIndex].classList.remove('active');
+                dots[currentIndex].classList.remove('active');
+                
+                // 推进坐标值
+                currentIndex = nextIndex;
+                
+                // 挂载新状态
+                slides[currentIndex].classList.add('active');
+                dots[currentIndex].classList.add('active');
+            }
+
+            function autoPlay() {
+                let nextIndex = (currentIndex + 1) % slides.length;
+                changeSlide(nextIndex);
+            }
+
+            // 挂载定时轮询机制
+            let timer = setInterval(autoPlay, intervalTime);
+
+            // 指示圆点的手动劫持控制
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    clearInterval(timer);
+                    changeSlide(index);
+                    timer = setInterval(autoPlay, intervalTime);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
