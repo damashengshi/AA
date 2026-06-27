@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>问题反馈处理</title>
+    <style>
+        /* 极致暗黑墨绿底色，完全消除白屏闪烁 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #020907;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部返回导航条美化 */
+        .back-bar {
+            width: 100%;
+            background: linear-gradient(to bottom, #051611, #020907);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 14px 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        .back-btn {
+            color: #10b981;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            opacity: 0.85;
+        }
+        .back-btn:hover, .back-btn:active {
+            opacity: 1;
+            transform: translateX(-2px);
+            color: #34d399;
+        }
+
+        /* 顶部主标题与提醒区域美化 */
+        .header-notice-area {
+            width: 100%;
+            background-color: #020907;
+            text-align: center;
+            padding: 20px 20px 14px 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        /* 底部增加一条精致的流光渐变线 */
+        .header-notice-area::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(52, 211, 153, 0.3), transparent);
+        }
+        .main-title {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #34d399; 
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+        }
+        .sub-notice {
+            margin: 4px 0;
+            font-size: 13px;
+            color: #94a3b8; 
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+        }
+        
+        /* 荧光绿与金黄高亮标签化 */
+        .green-highlight {
+            color: #34d399; 
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+        .gold-highlight {
+            color: #fbbf24; 
+            font-weight: 700;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 0 2px;
+            text-shadow: 0 0 8px rgba(251, 191, 36, 0.2);
+        }
+
+        /* 表单外层容器：精准剔除顶部高度，防止双滚动条卡顿 */
+        .form-wrapper {
+            width: 100%;
+            height: calc(100% - 47px - 105px); 
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background-color: #020907;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* 全屏覆盖遮罩结果页美化 */
+        .toast-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #020907; 
+            z-index: 99999 !important; 
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* 成功徽章动效升级 */
+        .success-icon-box {
+            width: 84px;
+            height: 84px;
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            border: 2px solid #34d399;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            box-shadow: 0 0 25px rgba(52, 211, 153, 0.4);
+            animation: pulseScale 2s infinite alternate, scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* 提交成功文本美化 */
+        .success-msg-line1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .success-msg-line2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fbbf24; 
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+        .success-msg-line3 {
+            font-size: 14px;
+            color: #a7f3d0; 
+            margin-bottom: 48px;
+            opacity: 0.8;
+        }
+
+        .redirect-countdown {
+            font-size: 13px;
+            color: #475569;
+            border-top: 1px solid rgba(6, 78, 59, 0.5);
+            padding-top: 16px;
+            width: 180px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 动画效果定义 */
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulseScale {
+            0% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.3); }
+            100% { box-shadow: 0 0 35px rgba(52, 211, 153, 0.6); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <div class="back-bar">
+        <a href="index.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            返回钻石商城
+        </a>
+    </div>
+
+    <!-- 顶部主标题与提示内容 -->
+    <div class="header-notice-area">
+        <div class="main-title">问题反馈处理</div>
+        <div class="sub-notice">按步骤填写正确的信息后<span class="green-highlight">下方按钮</span>提交即可</div>
+        <div class="sub-notice">耐心等待<span class="gold-highlight">60分钟</span>内，我们会自动联系您</div>
+    </div>
+
+    <!-- 表单全屏区域（已更新为您提供的新 Tally 表单 obpDR1） -->
+    <div class="form-wrapper">
+        <iframe data-tally-src="https://tally.so/embed/obpDR1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="746" frameborder="0" marginheight="0" marginwidth="0" title="问题反馈"></iframe>
+    </div>
+
+    <!-- 全屏覆盖遮罩结果页 -->
+    <div id="successToast" class="toast-fullscreen">
+        <div class="success-icon-box">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+                <path d="M5 13L9 17L19 7" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <div class="success-msg-line1">您已完成所有提交</div>
+        <div class="success-msg-line2">静心等待60分钟内会转款到账</div>
+        <div class="success-msg-line3">感谢您的支持与配合</div>
+        
+        <div class="redirect-countdown">正在安全返回首页...</div>
+    </div>
+
+    <!-- Tally 专属异步加载控制脚本 -->
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+    <!-- 核心拦截跳转逻辑 -->
+    <script>
+        window.addEventListener('message', function(event) {
+            if (event.data && typeof event.data === 'string') {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.eventName === 'formSubmitted' || data.event === 'Tally.FormSubmitted') {
+                        showToastAndRedirect();
+                    }
+                } catch (e) {}
+            }
+            if (event.data && event.data.eventName === 'formSubmitted') {
+                showToastAndRedirect();
+            }
+        });
+
+        function showToastAndRedirect() {
+            const toast = document.getElementById('successToast');
+            toast.style.display = 'flex';
+            setTimeout(function() {
+                window.location.href = 'index.html'; 
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
