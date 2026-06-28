@@ -2,275 +2,304 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>回收钻石流程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>回收钻石新手引导</title>
     <style>
-        /* 全局AA POKER科技感极深墨绿背景 */
-        body { 
-            background-color: #020907; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            color: #e2e8f0; 
-            margin: 0; 
-            padding: 0 12px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .container {
+        /* 全屏重置，严格禁止 H5 页面滚动，保持独立原生感 */
+        html, body {
+            margin: 0;
+            padding: 0;
             width: 100%;
-            max-width: 460px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            /* 【核心优化：动态安全边距】 */
-            padding-top: 110px;  /* 预留出顶部固定吸顶区域的高度，防止内容被盖住 */
-            padding-bottom: 80px; /* 预留出底部固定吸底按钮的高度，防止内容被盖住 */
+            height: 100%;
+            background-color: #020907; /* 极致暗黑底色 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        /* 【核心重构：永久固定悬浮顶部的吸顶包裹层】 */
-        .top-fixed-wrapper {
-            position: fixed;
+        /* 引导页核心全屏容器 */
+        .guide-page {
+            width: 100%;
+            height: 100%;
+            display: none; /* 默认隐藏 */
+            flex-direction: column;
+            justify-content: space-between; /* 顶部导航、中部核心框、底部按钮三项垂直等分 */
+            box-sizing: border-box;
+            padding: calc(10px + env(safe-area-inset-top)) 16px calc(15px + env(safe-area-inset-bottom)) 16px;
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            /* 采用带有透明度的极深墨绿，让上滑的内容能隐约透出，极具高级游戏沉浸感 */
-            background: linear-gradient(to bottom, #020907 85%, rgba(2, 9, 7, 0) 100%);
-            padding: 16px 12px 20px 12px;
-            box-sizing: border-box;
-            z-index: 1000; /* 确保层级高于内容卡片 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        .top-inner-container {
-            width: 100%;
-            max-width: 436px; /* 与下方卡片宽度完美对齐 */
+        /* 当前激活显示的页面 */
+        .guide-page.active {
             display: flex;
-            flex-direction: column;
+            animation: fadeIn 0.25s ease-in-out;
         }
 
-        /* 顶部返回导航栏 */
-        .back-bar {
-            width: 100%;
-            margin-bottom: 10px;
+        /* ---------------- 1. 顶部导航与页码 ---------------- */
+        .guide-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
+            height: 44px;
         }
         .back-btn {
-            color: #10b981;
-            text-decoration: none;
+            color: #10b981; /* 荧光绿 */
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 4px;
         }
-
-        /* 标题样式 */
-        .main-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            text-align: center;
-            margin: 0;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
-        }
-        
-        /* 核心卡片容器 */
-        .box-card { 
-            background: rgba(4, 18, 14, 0.75); 
-            border: 1px solid #064e3b; 
-            border-radius: 14px; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(16, 185, 129, 0.05); 
-            padding: 22px 16px; 
-            box-sizing: border-box; 
-            margin-bottom: 20px;
-        }
-
-        /* 荧光绿小标题 */
-        .section-title {
+        .page-indicator {
+            color: #475569;
             font-size: 14px;
-            color: #10b981; 
-            margin: 0 0 14px 0;
             font-weight: bold;
+            letter-spacing: 1px;
         }
-        
-        /* 公告与提示文字排版 */
-        .notice-text {
-            font-size: 13px;
-            color: #cbd5e1;
-            line-height: 1.6;
-            text-align: justify;
-            margin-bottom: 16px;
+        .page-indicator span {
+            color: #34d399;
         }
 
-        /* 修改为纵向垂直队列排列 */
-        .img-vertical-list {
+        /* ---------------- 2. 中部核心引导框（核心修改区） ---------------- */
+        .guide-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 0;
+            box-sizing: border-box;
+        }
+
+        /* 独立固定的核心引导卡片框 */
+        .guide-card {
+            width: 100%;
+            max-width: 360px; /* 限制大屏手机或小平板下的最大宽度 */
+            max-height: 72vh; /* 严格限制在屏幕垂直方向的 72% 以内，防止长图把底部按钮挤出屏幕 */
+            background-color: rgba(4, 18, 14, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 16px; 
-            width: 100%;
-            margin: 12px 0;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
 
-        /* 优化后的独立图片容器 */
-        .img-item {
-            width: 100%;
-            border-radius: 10px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            background: rgba(2, 9, 7, 0.6);
-            box-sizing: border-box;
-            overflow: hidden;
-            font-size: 0; 
-        }
-        .img-item img {
-            width: 100%;
-            height: auto; 
-            display: block;
-        }
-        
-        /* 暂无图片时的科技感虚线占位框样式 */
-        .img-placeholder {
-            width: 100%;
-            padding: 30px 10px;
-            border: 1px dashed #064e3b;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #475569;
+        /* 文本标题区 */
+        .guide-title {
+            font-size: 22px;
+            color: #ffffff;
+            font-weight: 800;
+            margin-bottom: 4px;
             text-align: center;
-            box-sizing: border-box;
+            letter-spacing: 0.5px;
+        }
+        .guide-subtitle {
+            font-size: 13.5px;
+            color: #fbbf24; /* 金黄强调 */
+            margin-bottom: 14px;
+            font-weight: 600;
+            text-align: center;
         }
 
-        /* 温馨提示模块样式 */
-        .tip-box {
-            background: rgba(239, 68, 68, 0.05);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 24px;
-            box-sizing: border-box;
-        }
-        .tip-title {
-            font-size: 13px;
-            color: #ef4444; 
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-        .tip-content {
-            font-size: 12px;
-            color: #94a3b8;
-            line-height: 1.6;
-        }
+   /* 图片固定框：专为竖屏游戏截图优化的长方形比例 */
+.guide-image-box {
+    width: 100%;
+    height: 360px; /* 显著调高高度，给竖屏截图留足空间 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    overflow: hidden;
+    background-color: transparent; /* 移除原本的黑色背景，让边缘不突兀 */
+    flex-shrink: 0;
+}
 
-        /* 永久固定悬浮底部的下一步发光长条按钮 */
-        .next-btn-fixed-wrapper {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+/* 核心：让高图在纵向上 100% 填满框，左右不再有大面积死黑 */
+.guide-image-box img {
+    width: auto; /* 宽度根据高度自动按比例缩放 */
+    height: 100%; /* 高度完全填满整个框 */
+    max-width: 100%;
+    object-fit: contain; 
+}
+
+/* 核心：约束图片最大只能等于容器，自动等比缩放 */
+.guide-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+        
+        /* 核心：确保 step 图片在框内完全完整显示，绝不被裁切、不拉伸 */
+        .guide-image-box img {
             width: 100%;
-            background: linear-gradient(to top, #020907 80%, rgba(2, 9, 7, 0) 100%);
-            padding: 12px 16px 20px 16px; 
+            height: 100%;
+            object-fit: contain; 
+        }
+
+        /* 底部说明文案区 */
+        .notice-container {
+            width: 100%;
+            background-color: rgba(2, 9, 7, 0.6);
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding-top: 12px;
             box-sizing: border-box;
-            z-index: 999;
+        }
+        .notice-row {
+            font-size: 13.5px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* ---------------- 3. 底部固定的操作按钮 ---------------- */
+        .guide-footer {
+            width: 100%;
             display: flex;
             justify-content: center;
+            padding-top: 4px;
         }
-
         .next-btn {
-            display: block;
             width: 100%;
-            max-width: 436px; /* 与上层卡片最大宽度完美对齐线 */
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            max-width: 360px;
+            height: 48px;
+            background-color: #10b981; /* 荧光绿 */
             color: #ffffff;
             border: none;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 15px;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: bold;
-            text-align: center;
-            text-decoration: none;
-            box-sizing: border-box;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transition: background 0.15s;
         }
         .next-btn:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            background-color: #059669;
+        }
+
+        /* 关键颜色高亮处理 */
+        .highlight-green { color: #34d399; font-weight: bold; }
+        .highlight-gold { color: #fbbf24; font-weight: bold; }
+
+        /* 界面淡入 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
-    <!-- 【核心新增：顶部固定吸顶包裹层】 -->
-    <div class="top-fixed-wrapper">
-        <div class="top-inner-container">
-    <!-- 顶部导航 -->
-    <div class="back-bar">
-        <a href="index.html" class="back-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            返回钻石商城
-        </a>
-    </div>
-            <!-- 主标题 -->
-            <div class="main-title">回收钻石流程</div>
-           <div class="notice-text" style="color: #f59e0b; font-weight: bold; text-align: center;">
-             钻石发送到ID<span style="color: #ef4444;">86119100</span>后点击下一步</div>
+    <!-- ================= 页面 1 ================= -->
+    <div id="page1" class="guide-page active">
+        <div class="guide-header">
+            <div class="back-btn" onclick="location.href='index.html'">✕ 退出引导</div>
+            <div class="page-indicator"><span>1</span> / 3</div>
         </div>
-        </div>
-    </div>
-
-    <!-- 中部滚动内容区 -->
-    <div class="container">
-        <!-- 1. 公告栏卡片 -->
-        <div class="box-card">
-            <div class="section-title">📢 操作须知：2000💎起回收</div>
-            <div class="notice-text">
-                严格按照以下操作提示操作，点击下一步上传操作凭证后提交
-            </div>
-
-            <!-- 2. 三张指示图片竖着向下完整排列区 -->
-            <div class="img-vertical-list">
-                <!-- 第一步图片 -->
-                <div class="img-item">
-                    <img src="step1.jpg" alt="步骤一截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="img-placeholder" style="display:none;">⚏ 步骤一 截图流程说明 ⚏</div>
+        
+        <div class="guide-body">
+            <!-- 独立的引导框 -->
+            <div class="guide-card">
+                <div class="guide-title">进入游戏背包</div>
+                <div class="guide-subtitle">操作须知：2000 💎 起回收</div>
+                
+                <!-- 固定在框内的图片容器 -->
+                <div class="guide-image-box">
+                    <img src="step1.png" alt="进入游戏背包并点击赠送">
                 </div>
                 
-                <!-- 第二步图片 -->
-                <div class="img-item">
-                    <img src="step2.jpg" alt="步骤二截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="img-placeholder" style="display:none;">⚏ 步骤二 截图流程说明 ⚏</div>
+                <div class="notice-container">
+                    <div class="notice-row">严格按照提示操作。登录后点击右下角进入<span class="highlight-green">【我的】</span>，随后点击进入<span class="highlight-green">【背包】</span>并切换至顶部<span class="highlight-green">【赠送】</span>标签。</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="guide-footer">
+            <button class="next-btn" onclick="nextPage(2)">确认无误，下一步</button>
+        </div>
+    </div>
+
+
+    <!-- ================= 页面 2 ================= -->
+    <div id="page2" class="guide-page">
+        <div class="guide-header">
+            <div class="back-btn" onclick="prevPage(1)">⬅ 上一步</div>
+            <div class="page-indicator"><span>2</span> / 3</div>
+        </div>
+        
+        <div class="guide-body">
+            <!-- 独立的引导框 -->
+            <div class="guide-card">
+                <div class="guide-title">精准赠送代理</div>
+                <div class="guide-subtitle">核对目标 ID <span class="highlight-red" style="font-size:16px; color:#ef4444;">861119100</span> 防止转错</div>
+                
+                <!-- 固定在框内的图片容器 -->
+                <div class="guide-image-box">
+                    <img src="step2.png" alt="精确输入代理ID并点击赠送">
                 </div>
                 
-                <!-- 第三步图片 -->
-                <div class="img-item">
-                    <img src="step3.jpg" alt="步骤三截图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="img-placeholder" style="display:none;">⚏ 步骤三 截图流程说明 ⚏</div>
+                <div class="notice-container">
+                    <div class="notice-row">输入框中精准输入官方指定回收代理ID<span class="highlight-gold" style="font-size:16px;">861119100</span>，核对名称是<span class="highlight-gold" style="font-size:16px;">萌主号</span>无误，点击<span class="highlight-green">【赠送平台钻石】</span></div>
                 </div>
             </div>
         </div>
-
-        <!-- 3. 温馨提示卡片 -->
-        <div class="tip-box">
-            <div class="tip-title">⚠️ 温馨提示</div>
-            <div class="tip-content">
-                操作完以上流程后，点击赠送记录，截图保存，方便下一步上传
-            </div>
+        
+        <div class="guide-footer">
+            <button class="next-btn" onclick="nextPage(3)">已完成赠送，下一步</button>
         </div>
     </div>
 
-    <!-- 底部固定吸底包裹层 -->
-    <div class="next-btn-fixed-wrapper">
-        <!-- 跳转下一步按钮 -->
-        <a href="form.html" class="next-btn">已经操作无误后下一步</a>
+
+    <!-- ================= 页面 3 ================= -->
+    <div id="page3" class="guide-page">
+        <div class="guide-header">
+            <div class="back-btn" onclick="prevPage(2)">⬅ 上一步</div>
+            <div class="page-indicator"><span>3</span> / 3</div>
+        </div>
+        
+        <div class="guide-body">
+            <!-- 独立的引导框 -->
+            <div class="guide-card">
+                <div class="guide-title">截取凭证并提交</div>
+                <div class="guide-subtitle">预计 60 分钟内快速到账</div>
+                
+                <!-- 固定在框内的图片容器 -->
+                <div class="guide-image-box">
+                    <img src="step3.png" alt="查看并截取历史记录凭证">
+                </div>
+                
+                <div class="notice-container">
+                    <div class="notice-row">请务必前往<span class="highlight-green">【赠送记录】</span>中截取包含数量和时间的完整<span class="highlight-red" style="font-size:16px; color:#ef4444; font-weight: bold;">【截图】</span>以备下一步上传截图至系统申请<span class="highlight-red" style="font-size:16px; color:#ef4444; font-weight: bold;">【下款】</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="guide-footer">
+            <button class="next-btn" onclick="location.href='form.html'">上传截图提交</button>
+        </div>
     </div>
 
+    <!-- H5 页面切换逻辑 -->
+    <script>
+        function nextPage(pageNumber) {
+            document.querySelectorAll('.guide-page').forEach(page => page.classList.remove('active'));
+            document.getElementById('page' + pageNumber).classList.add('active');
+        }
+        function prevPage(pageNumber) {
+            document.querySelectorAll('.guide-page').forEach(page => page.classList.remove('active'));
+            document.getElementById('page' + pageNumber).classList.add('active');
+        }
+    </script>
 </body>
 </html>
